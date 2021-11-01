@@ -1,5 +1,7 @@
 package com.example.mareu.service;
 
+import com.example.mareu.model.Meet;
+
 import java.util.List;
 
 public class DummyMeetApiService implements MeetApiService {
@@ -18,15 +20,13 @@ public class DummyMeetApiService implements MeetApiService {
     }
 
     @Override
-    public void addMeet(Meet meet) {
+    public List<Meet> addMeet(Meet meet) {
+
+        return null;
+    }
 
     }
 
-    @Override
-    public void removeMeet(Meet meet) {
-
-    }
-}
 
 
 

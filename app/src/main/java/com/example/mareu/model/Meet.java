@@ -1,8 +1,6 @@
-package com.example.mareu.service;
+package com.example.mareu.model;
 
-import java.io.Serializable;
-
-public class Meet implements Serializable {
+public class Meet {
 
     private String reunion;
     private String startmeet;
