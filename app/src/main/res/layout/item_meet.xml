@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/photo"
+        android:id="@+id/circle"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="16dp"
@@ -18,48 +18,62 @@
 
 
     <ImageButton
-        android:id="@+id/item_list_delete_button"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_margin="16dp"
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp"
+        android:layout_margin="8dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_delete_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/recipient"
+        android:id="@+id/Reunion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/photo"
-        app:layout_constraintTop_toTopOf="@id/photo"
+        android:layout_marginStart="16dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@id/circle"
+        app:layout_constraintTop_toTopOf="@id/circle"
         android:layout_marginLeft="8dp"
-        tools:text="5"/>
+        tools:text="Réunion A"/>
 
     <TextView
-        android:id="@+id/subject"
+        android:id="@+id/StartMeet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/photo"
-        app:layout_constraintTop_toBottomOf="@id/recipient"
+        android:textSize="20dp"
         android:layout_marginLeft="8dp"
-        tools:text="3"/>
+        app:layout_constraintLeft_toRightOf="@id/Reunion"
+        app:layout_constraintTop_toTopOf="@id/circle"
+        tools:text="- 14h00 -"/>
 
     <TextView
-        android:id="@+id/content"
-        android:layout_width="0dp"
+        android:id="@+id/Room"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:ellipsize="end"
-        android:lines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/photo"
-        app:layout_constraintTop_toBottomOf="@id/subject"/>
+        android:textStyle="bold"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toRightOf="@id/StartMeet"
+        app:layout_constraintTop_toTopOf="@id/circle"
+        tools:text="Peach"/>
 
+    <TextView
+        android:id="@+id/Participants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textStyle="bold"
+        android:textSize="13dp"
+        app:layout_constraintTop_toBottomOf="@id/Room"
+        app:layout_constraintLeft_toRightOf="@id/circle"
+        tools:text="maxime@lamzone.com"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,12 +20,12 @@ public class DummyMeetApiService implements MeetApiService {
     }
 
     @Override
-    public List<Meet> addMeet(Meet meet) {
-
-        return null;
+    public void addMeet(Meet meet) {
+        meets.add(meet);
     }
 
-    }
+}
+
 
 
 

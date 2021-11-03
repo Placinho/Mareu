@@ -10,7 +10,7 @@ public interface MeetApiService {
 
     void deleteMeet(Meet meet);
 
-    List<Meet> addMeet(Meet meet);
+    void addMeet(Meet meet);
 
 }
 

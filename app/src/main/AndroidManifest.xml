@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mareu">
 
-        <activity android:name="com.example.mareu.ui.MainActivity"></activity>
+        <activity android:name="com.example.mareu.ui.AddMeet"></activity>
 
             <activity
-                android:name="com.example.mareu.ui.AddMeet">
+                android:name="com.example.mareu.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
