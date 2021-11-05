@@ -1,11 +1,11 @@
 package com.example.mareu.DI;
 
-import com.example.mareu.service.DummyMeetApiService;
+import com.example.mareu.service.DummyMeetingApiService;
 import com.example.mareu.service.MeetApiService;
 
 public class DI {
 
-    private static final MeetApiService service = (MeetApiService) new DummyMeetApiService();
+    private static final MeetApiService service = (MeetApiService) new DummyMeetingApiService();
 
     /**
      * Get an instance on @{@link MeetApiService}
@@ -20,6 +20,6 @@ public class DI {
      * @return
      */
     public static MeetApiService getNewInstanceApiService() {
-        return (MeetApiService) new DummyMeetApiService();
+        return (MeetApiService) new DummyMeetingApiService();
     }
 }

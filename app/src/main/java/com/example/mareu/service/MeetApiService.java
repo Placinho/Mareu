@@ -1,16 +1,16 @@
 package com.example.mareu.service;
 
-import com.example.mareu.model.Meet;
+import com.example.mareu.model.Meeting;
 
 import java.util.List;
 
 public interface MeetApiService {
 
-    List<Meet> getMeet();
+    List<Meeting> getMeet();
 
-    void deleteMeet(Meet meet);
+    void deleteMeet(Meeting meet);
 
-    void addMeet(Meet meet);
+    void addMeet(Meeting meet);
 
 }
 

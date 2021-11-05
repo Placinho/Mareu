@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mareu">
 
-        <activity android:name="com.example.mareu.ui.AddMeet"></activity>
+        <activity android:name="com.example.mareu.ui.AddMeetingActivity"></activity>
 
             <activity
                 android:name="com.example.mareu.ui.MainActivity">
