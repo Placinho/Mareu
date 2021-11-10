@@ -17,10 +17,15 @@ public class Reunion {
             return null;
         }
 
-        public static Object getText() {
-            return null;
+        public static int getText() {
+            return getText();
         }
 
+
     public static void setText(String reunion) {
+    }
+
+    public static int setText() {
+        return setText();
     }
 }

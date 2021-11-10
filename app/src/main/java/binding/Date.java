@@ -1,13 +1,9 @@
 package binding;
 
-import androidx.annotation.NonNull;
-
-import com.example.mareu.ui.ActivityAddMeetBinding;
-
 public class Date {
-    public static void setError(String please_type_a_room) {
-    }
 
+    public static void setError(String please_type_a_date) {
+    }
     public static Object getEditText() {
         return null;
     }
@@ -15,4 +11,6 @@ public class Date {
     public static Object getText() {
         return null;
     }
+
+
 }

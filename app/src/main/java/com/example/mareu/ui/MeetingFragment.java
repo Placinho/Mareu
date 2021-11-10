@@ -45,7 +45,7 @@ public class MeetingFragment extends Fragment {
 
     private void initList() {
         mMeet = (ArrayList<Meeting>) mMeetApiService.getMeet();
-        mRecyclerView.setAdapter(new MeetingAdapter(mMeet, true));
+        mRecyclerView.setAdapter(new MeetingAdapter(mMeet));
     }
 
     @Override

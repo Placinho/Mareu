@@ -5,9 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Reunion"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -31,27 +28,20 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/StartMeet"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/date_picker"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Heure de début"
-        app:boxStrokeColor="#126FB8"
-        app:endIconTint="#126FB8"
-        app:hintTextColor="#126FB8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Reunion"
-        app:startIconTint="#126FB8">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textCursorDrawable="@null"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="16dp"
+        android:backgroundTint="#2196F3"
+        android:hint="Select"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="25sp"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@id/Reunion"
+        app:layout_constraintTop_toBottomOf="@id/Reunion" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +56,7 @@
         app:hintTextColor="#126FB8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/StartMeet"
+        app:layout_constraintTop_toBottomOf="@id/time_picker"
         app:startIconTint="#126FB8">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -108,5 +98,77 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Participants" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Reunion"
+        app:layout_constraintBottom_toTopOf="@id/time_picker"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/Date"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:hint="Date"
+            android:textSize="20sp"
+            android:gravity="center"
+            app:boxStrokeColor="#126FB8"
+            app:endIconTint="#126FB8"
+            app:hintTextColor="#126FB8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Reunion"
+            app:startIconTint="#126FB8">
+
+        </TextView>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/time_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="16dp"
+        android:backgroundTint="#2196F3"
+        android:hint="Select"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="25sp"
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@id/Reunion"
+        app:layout_constraintTop_toBottomOf="@id/date_picker" />
+
+    <androidx.cardview.widget.CardView
+
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date_picker"
+        app:layout_constraintBottom_toTopOf="@id/Room"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/time"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:hint="Time"
+            android:textSize="20sp"
+            android:gravity="center"
+            app:boxStrokeColor="#126FB8"
+            app:endIconTint="#126FB8"
+            app:hintTextColor="#126FB8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Reunion"
+            app:startIconTint="#126FB8">
+
+        </TextView>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

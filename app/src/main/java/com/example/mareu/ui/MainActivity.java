@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.mareu.DI.DI;
 import com.example.mareu.R;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.service.MeetApiService;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +25,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+
     private MeetApiService mMeetApiService;
     private List<Meeting> mMeetArrayList;
+
+
 
     private void initData() {
         mMeetArrayList = mMeetApiService.getMeet();
@@ -38,9 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initData();
 
-        initRecyclerView();
-
-
         FloatingActionButton addMeet = (FloatingActionButton) findViewById(R.id.add_meet);
 
         addMeet.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
             }
 
+
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,17 +69,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+
     @Override
     public void onClick(View v) {
 
     }
 
     private void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
         MeetingAdapter meetAdapter = new MeetingAdapter(new ArrayList<>(mMeetArrayList));
-        RecyclerView myRecyclerview =  findViewById(R.id.liste);
-        myRecyclerview.setLayoutManager(layoutManager);
-        myRecyclerview.setAdapter(meetAdapter);
+        RecyclerView mRecyclerView =  findViewById(R.id.liste);
+        mRecyclerView.setLayoutManager( new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(meetAdapter);
 
     }
 }

@@ -5,8 +5,7 @@ import java.util.Date;
 public class Meeting {
 
     private String reunion;
-    private Date date;
-    private String startmeet;
+    private String date;
     private String room;
     private String participants;
 
@@ -15,17 +14,14 @@ public class Meeting {
         this.reunion = reunion;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public void setStartmeet(String startmeet) {
-        this.startmeet = startmeet;
-    }
 
     public void setRoom(String room) {
         this.room = room;
@@ -35,10 +31,9 @@ public class Meeting {
         this.participants = participants;
     }
 
-    public Meeting(String reunion, Date date, String startmeet, String room, String participants) {
+    public Meeting(String reunion, String date, String room, String participants) {
         this.reunion = reunion;
         this.date = date;
-        this.startmeet = startmeet;
         this.room = room;
         this.participants = participants;
 
@@ -48,9 +43,6 @@ public class Meeting {
         return reunion;
     }
 
-    public String getStartmeet() {
-        return startmeet;
-    }
 
     public String getRoom() {
         return room;
@@ -64,6 +56,10 @@ public class Meeting {
     }
 
     public void remove(Meeting meet) {
+    }
+
+    public int getText() {
+        return getText();
     }
 }
 
