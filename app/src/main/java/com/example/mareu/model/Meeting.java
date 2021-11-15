@@ -1,13 +1,17 @@
 package com.example.mareu.model;
 
-import java.util.Date;
+import binding.Date;
 
 public class Meeting {
 
     private String reunion;
     private String date;
+    private String time;
     private String room;
     private String participants;
+
+    public Meeting(String reunion, String participants) {
+    }
 
 
     public void setReunion(String reunion) {
@@ -18,10 +22,13 @@ public class Meeting {
         return date;
     }
 
+    public String setTime(){
+        return time;
+    }
+
     public void setDate(String date) {
         this.date = date;
     }
-
 
     public void setRoom(String room) {
         this.room = room;
@@ -31,18 +38,21 @@ public class Meeting {
         this.participants = participants;
     }
 
-    public Meeting(String reunion, String date, String room, String participants) {
+    public Meeting(String reunion, String date, String time, String room, String participants) {
         this.reunion = reunion;
         this.date = date;
+        this.time = time;
         this.room = room;
         this.participants = participants;
-
     }
 
     public String getReunion() {
         return reunion;
     }
 
+    public String getTime(){
+        return time;
+    }
 
     public String getRoom() {
         return room;
@@ -52,15 +62,6 @@ public class Meeting {
         return participants;
     }
 
-    public void add(Meeting meet) {
-    }
-
-    public void remove(Meeting meet) {
-    }
-
-    public int getText() {
-        return getText();
-    }
 }
 
 

@@ -19,6 +19,8 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.SimpleTimeZone;
 
 import binding.Participants;
 import binding.Reunion;
@@ -47,6 +49,15 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
     public void onBindViewHolder(@NonNull MeetingAdapter.ViewHolder holder, int position) {
         holder.displayMeet(mMeet.get(position));
 
+        holder.delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMeet.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, mMeet.size());
+            }
+        });
+
     }
 
     @Override
@@ -56,19 +67,19 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public final TextView Reunion;
-        public final TextView Date;
-        public final TextView Room;
-        public final TextView Participants;
+        public final TextView reunion;
+        public final TextView time;
+        public final TextView room;
+        public final TextView participants;
         public final ImageButton delete_button;
         public final ImageView circle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            Reunion = itemView.findViewById(R.id.Reunion);
-            Date = itemView.findViewById(R.id.Date);
-            Room = itemView.findViewById(R.id.Room);
-            Participants = itemView.findViewById(R.id.Participants);
+            reunion = itemView.findViewById(R.id.Reunion);
+            time = itemView.findViewById(R.id.Time);
+            room = itemView.findViewById(R.id.Room);
+            participants = itemView.findViewById(R.id.Participants);
             delete_button = itemView.findViewById(R.id.delete_button);
             circle = itemView.findViewById(R.id.circle);
         }
@@ -77,10 +88,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
 
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy");
 
-            Reunion.setText(meeting.getText());
-            Date.setText(simpleDateFormat.format(meeting.getDate()));
-            Room.setText(meeting.getText());
-            Participants.setText(meeting.getText());
+            reunion.setText(meeting.getReunion());
+            time.setText(meeting.getTime());
+            room.setText(meeting.getRoom());
+            participants.setText(meeting.getParticipants());
 
         }
 

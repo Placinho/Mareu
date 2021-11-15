@@ -3,12 +3,18 @@ package com.example.mareu.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mareu.DI.DI;
 import com.example.mareu.R;
@@ -19,60 +25,25 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
+
+import binding.Recyclerview;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+    ActivityAddMeetBinding binding;
+    Recyclerview mRecyclerView;
     private MeetApiService mMeetApiService;
     private List<Meeting> mMeetArrayList;
 
 
-
     private void initData() {
         mMeetArrayList = mMeetApiService.getMeet();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mMeetApiService = DI.getMeetApiService();
-
-        initData();
-
-        FloatingActionButton addMeet = (FloatingActionButton) findViewById(R.id.add_meet);
-
-        addMeet.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddMeetingActivity.class));
-            }
-
-            public void ReturnBack(View view) {
-                Intent intent = new Intent(getApplicationContext(), AddMeetingActivity.class);
-                finish();
-                startActivity(intent);
-            }
-
-
-        });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     private void initRecyclerView() {
@@ -83,5 +54,82 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mRecyclerView.setAdapter(meetAdapter);
 
     }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mMeetApiService = DI.getMeetApiService();
+
+        initData();
+
+        initRecyclerView();
+
+        FloatingActionButton addMeet = (FloatingActionButton) findViewById(R.id.add_meet);
+
+        addMeet.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddMeetingActivity.class));
+            }
+
+        });
+}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.filter_by_date:
+                dateDialog();
+                return true;
+            case R.id.filter_by_name:
+                resetFilter();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void resetFilter() {
+        mMeetArrayList.clear();
+        mMeetArrayList.addAll(mMeetApiService.getMeet());
+        binding.recyclerview.getAdapter().notifyDataSetChanged();
+    }
+
+    private void dateDialog() {
+        int selectedYear = 2021;
+        int selectedMonth = 11;
+        int selectedDayOfMonth = 15;
+
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar date = Calendar.getInstance();
+                date.set(year, month, dayOfMonth);
+                mMeetArrayList.clear();
+                mMeetArrayList.addAll(mMeetApiService.getMeetFilteredByDate(date.getTime()));
+                binding.recyclerview.getAdapter().notifyDataSetChanged();
+            }
+        };
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);
+
+        datePickerDialog.show();
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+
+
+    }
+
 }
 
