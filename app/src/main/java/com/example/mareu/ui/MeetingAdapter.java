@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SimpleTimeZone;
 
-import binding.Participants;
-import binding.Reunion;
-
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHolder> {
 
@@ -55,6 +52,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
                 mMeet.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, mMeet.size());
+
             }
         });
 
@@ -94,6 +92,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
             participants.setText(meeting.getParticipants());
 
         }
+
+
 
     }
 }

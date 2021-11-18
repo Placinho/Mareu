@@ -1,6 +1,7 @@
 package com.example.mareu.model;
 
-import binding.Date;
+import java.util.Objects;
+
 
 public class Meeting {
 
@@ -10,9 +11,22 @@ public class Meeting {
     private String room;
     private String participants;
 
-    public Meeting(String reunion, String participants) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meeting meeting = (Meeting) o;
+        return reunion.equals(meeting.reunion) &&
+                date.equals(meeting.date) &&
+                time.equals(meeting.time) &&
+                room.equals(meeting.room) &&
+                participants.equals(meeting.participants);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(reunion, date, time, room, participants);
+    }
 
     public void setReunion(String reunion) {
         this.reunion = reunion;

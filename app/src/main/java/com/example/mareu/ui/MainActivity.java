@@ -1,7 +1,9 @@
 package com.example.mareu.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,20 +30,15 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
-import binding.Recyclerview;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ActivityAddMeetBinding binding;
-    Recyclerview mRecyclerView;
     private MeetApiService mMeetApiService;
     private List<Meeting> mMeetArrayList;
 
+    RecyclerView mRecyclerView;
 
     private void initData() {
         mMeetArrayList = mMeetApiService.getMeet();
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initRecyclerView() {
 
         MeetingAdapter meetAdapter = new MeetingAdapter(new ArrayList<>(mMeetArrayList));
-        RecyclerView mRecyclerView =  findViewById(R.id.liste);
+        mRecyclerView =  findViewById(R.id.liste);
         mRecyclerView.setLayoutManager( new LinearLayoutManager(this));
         mRecyclerView.setAdapter(meetAdapter);
 
@@ -70,10 +68,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addMeet.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AddMeetingActivity.class));
+
             }
 
         });
 }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void resetFilter() {
         mMeetArrayList.clear();
         mMeetArrayList.addAll(mMeetApiService.getMeet());
-        binding.recyclerview.getAdapter().notifyDataSetChanged();
+        mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
     private void dateDialog() {
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 date.set(year, month, dayOfMonth);
                 mMeetArrayList.clear();
                 mMeetArrayList.addAll(mMeetApiService.getMeetFilteredByDate(date.getTime()));
-                binding.recyclerview.getAdapter().notifyDataSetChanged();
+                mRecyclerView.getAdapter().notifyDataSetChanged();
             }
         };
 
@@ -123,13 +123,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     @Override
     public void onClick(View v) {
 
 
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+        initRecyclerView();
+    }
 }
+
 
