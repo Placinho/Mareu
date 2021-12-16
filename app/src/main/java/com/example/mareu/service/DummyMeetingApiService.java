@@ -36,7 +36,7 @@ public class DummyMeetingApiService implements MeetApiService {
         calendar1.setTime(date);
         for (int i = 0; i < mMeet.size();i++) {
             Calendar calendar2 = Calendar.getInstance();
-            calendar2.setTime(date);
+            calendar2.setTime(mMeet.get(i).getDate());
             boolean sameDay = calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR) &&
                     calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR);
             if (sameDay) result.add(mMeet.get(i));
@@ -45,6 +45,21 @@ public class DummyMeetingApiService implements MeetApiService {
             return result;
 
     }
+
+    @Override
+    public ArrayList<Meeting> getMeetFilteredByName(String newText) {
+
+        ArrayList<Meeting> result = new ArrayList<>();
+
+        for (int i = 0; i < mMeet.size();i++) {
+            boolean isInRoom = mMeet.get(i).getRoom().contains(newText);
+            if (isInRoom) result.add(mMeet.get(i));
+        }
+
+        return result;
+
+    }
+
 
 }
 

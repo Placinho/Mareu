@@ -16,5 +16,7 @@ public interface MeetApiService {
     void addMeet(Meeting meet);
 
     ArrayList<Meeting> getMeetFilteredByDate(Date date);
+
+   ArrayList<Meeting> getMeetFilteredByName(String newText);
 }
 

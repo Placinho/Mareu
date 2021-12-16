@@ -1,6 +1,7 @@
 package com.example.mareu.ui;
 
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.DI.DI;
 import com.example.mareu.R;
@@ -52,11 +55,13 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     private EditText reunion;
     private TextView date;
+    private Date mydate = new Date();
     private TextView time;
     private TextInputLayout room;
     private EditText participants;
 
     Button valider;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +128,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
                 mDateText.setText(" " + materialDatePicker.getHeaderText());
 
+
             }
         });
 
@@ -139,11 +145,23 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String timeString = "" + hourOfDay + "h" + minute;
                 mTimeText.setText(timeString);
+
             }
         }, HOUR, MINUTE, false);
 
         timePickerDialog.show();
     }
+
+    DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            Calendar date = Calendar.getInstance();
+            int MONTH = date.get(Calendar.MONTH);
+            int YEAR = date.get(Calendar.YEAR);
+            mydate.setTime(YEAR);
+            mydate.setTime(MONTH);
+        }
+    };
 
     @Override
     public void onClick(View v) {
@@ -155,7 +173,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     void onSubmit() {
         String mReunion = reunion.getText().toString();
-        String mDate = date.toString();
+        Date mDate = mydate.getTime();
         String mTime = time.getText().toString();
         String mRoom = room.getEditText().getText().toString();
         String mParticipants = participants.getText().toString();
@@ -190,6 +208,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         Toast.makeText(this, "Meeting OK", Toast.LENGTH_SHORT).show();
         finish();
     }
+
 }
 
 

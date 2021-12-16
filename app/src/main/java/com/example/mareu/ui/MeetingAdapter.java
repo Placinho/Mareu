@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,22 +16,29 @@ import androidx.room.Room;
 
 import com.example.mareu.R;
 import com.example.mareu.model.Meeting;
+import com.example.mareu.service.MeetApiService;
 
 import org.w3c.dom.Text;
 
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.SimpleTimeZone;
 
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHolder> {
 
-    private ArrayList<Meeting> mMeet;
+    private static List<Meeting>mMeetArrayList;
+    private static List<Meeting>mMeetFull;
+    private MeetApiService mMeetApiService;
+    MeetingAdapter meetAdapter;
 
-    public MeetingAdapter(ArrayList<Meeting>mMeet) {
+    public MeetingAdapter(List<Meeting>mMeet) {
 
-        this.mMeet = mMeet;
+        this.mMeetArrayList = mMeet;
+        mMeetFull = new ArrayList<>(mMeet);
     }
 
     @NonNull
@@ -44,15 +53,14 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MeetingAdapter.ViewHolder holder, int position) {
-        holder.displayMeet(mMeet.get(position));
+        holder.displayMeet(mMeetArrayList.get(position));
 
         holder.delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mMeet.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mMeet.size());
-
+               mMeetArrayList.remove(position);
+               notifyItemRemoved(position);
+               notifyItemRangeChanged(position,mMeetArrayList.size());
             }
         });
 
@@ -60,8 +68,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return mMeet.size();
+        return mMeetArrayList.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -92,8 +101,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
             participants.setText(meeting.getParticipants());
 
         }
-
-
 
     }
 }

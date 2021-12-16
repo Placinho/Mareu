@@ -1,6 +1,7 @@
 package com.example.mareu.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,10 +29,13 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import static com.example.mareu.ui.MeetingAdapter.*;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -39,14 +44,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Meeting> mMeetArrayList;
 
     RecyclerView mRecyclerView;
+    MeetingAdapter meetAdapter;
+
+    private Date mydate = new Date();
+
+    SearchView searchView;
 
     private void initData() {
-        mMeetArrayList = mMeetApiService.getMeet();
+        mMeetArrayList = new ArrayList<>(mMeetApiService.getMeet());
     }
 
     private void initRecyclerView() {
 
-        MeetingAdapter meetAdapter = new MeetingAdapter(new ArrayList<>(mMeetArrayList));
+        MeetingAdapter meetAdapter = new MeetingAdapter(mMeetArrayList);
         mRecyclerView =  findViewById(R.id.liste);
         mRecyclerView.setLayoutManager( new LinearLayoutManager(this));
         mRecyclerView.setAdapter(meetAdapter);
@@ -72,14 +82,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
         });
-}
 
+
+}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.search);
+
+        searchView = (SearchView) menuItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mMeetArrayList.clear();
+                mMeetArrayList.addAll(mMeetApiService.getMeetFilteredByName(newText));
+                mRecyclerView.getAdapter().notifyDataSetChanged();
+
+                return false;
+            }
+        });
         return true;
+
     }
 
     public boolean onOptionsItemSelected (MenuItem item) {
@@ -87,24 +119,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.filter_by_date:
                 dateDialog();
                 return true;
-            case R.id.filter_by_name:
-                resetFilter();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void resetFilter() {
-        mMeetArrayList.clear();
-        mMeetArrayList.addAll(mMeetApiService.getMeet());
-        mRecyclerView.getAdapter().notifyDataSetChanged();
-    }
-
     private void dateDialog() {
         int selectedYear = 2021;
         int selectedMonth = 11;
-        int selectedDayOfMonth = 15;
+        int selectedDayOfMonth = 9;
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -114,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mMeetArrayList.clear();
                 mMeetArrayList.addAll(mMeetApiService.getMeetFilteredByDate(date.getTime()));
                 mRecyclerView.getAdapter().notifyDataSetChanged();
+
             }
         };
 

@@ -1,12 +1,15 @@
 package com.example.mareu.model;
 
+import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.Date;
 import java.util.Objects;
 
 
 public class Meeting {
 
     private String reunion;
-    private String date;
+    private Date date;
     private String time;
     private String room;
     private String participants;
@@ -32,7 +35,7 @@ public class Meeting {
         this.reunion = reunion;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -40,7 +43,7 @@ public class Meeting {
         return time;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -52,7 +55,7 @@ public class Meeting {
         this.participants = participants;
     }
 
-    public Meeting(String reunion, String date, String time, String room, String participants) {
+    public Meeting(String reunion, Date date, String time, String room, String participants) {
         this.reunion = reunion;
         this.date = date;
         this.time = time;
@@ -76,6 +79,13 @@ public class Meeting {
         return participants;
     }
 
+
+    public void setDate() {
+    }
+
+    public Charset toLowerCase() {
+        return null;
+    }
 }
 
 
