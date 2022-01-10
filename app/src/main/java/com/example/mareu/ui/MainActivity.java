@@ -29,6 +29,8 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -83,9 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         });
 
-
 }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -118,10 +118,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (item.getItemId()) {
             case R.id.filter_by_date:
                 dateDialog();
+            case R.id.reset_filter:
+                resetFilter();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void resetFilter() {
+        mMeetArrayList.clear();
+        mMeetArrayList.addAll(mMeetApiService.getMeet());
+        mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
     private void dateDialog() {
@@ -132,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+
                 Calendar date = Calendar.getInstance();
                 date.set(year, month, dayOfMonth);
                 mMeetArrayList.clear();
@@ -139,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mRecyclerView.getAdapter().notifyDataSetChanged();
 
             }
+
         };
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);

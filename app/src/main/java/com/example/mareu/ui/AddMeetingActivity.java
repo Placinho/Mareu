@@ -35,6 +35,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -62,6 +63,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     Button valider;
     private RecyclerView mRecyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +119,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         mDateText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                materialDatePicker.show(getSupportFragmentManager(), "Date_Picker");
+                dateDialog();
 
             }
         });
@@ -146,22 +148,18 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 String timeString = "" + hourOfDay + "h" + minute;
                 mTimeText.setText(timeString);
 
+                Calendar calendar2 = Calendar.getInstance();
+                calendar2.setTime(mydate);
+                calendar2.set(Calendar.HOUR,hourOfDay);
+                calendar2.set(Calendar.MINUTE, minute);
+
+                mydate = calendar2.getTime();
             }
         }, HOUR, MINUTE, false);
 
         timePickerDialog.show();
     }
 
-    DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            Calendar date = Calendar.getInstance();
-            int MONTH = date.get(Calendar.MONTH);
-            int YEAR = date.get(Calendar.YEAR);
-            mydate.setTime(YEAR);
-            mydate.setTime(MONTH);
-        }
-    };
 
     @Override
     public void onClick(View v) {
@@ -171,9 +169,10 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+
     void onSubmit() {
         String mReunion = reunion.getText().toString();
-        Date mDate = mydate.getTime();
+        String mDate = mDateText.getText().toString();
         String mTime = time.getText().toString();
         String mRoom = room.getEditText().getText().toString();
         String mParticipants = participants.getText().toString();
@@ -190,7 +189,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (mTime.equals("")) {
-            time.setError("Please type a name");
+            time.setError("Please type a time");
             return;
         }
 
@@ -204,11 +203,36 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             return;
         }
 
-        mMeetApiService.addMeet(new Meeting(mReunion, mDate, mTime, mRoom, mParticipants));
+        mMeetApiService.addMeet(new Meeting(mReunion, mydate, mRoom, mParticipants));
         Toast.makeText(this, "Meeting OK", Toast.LENGTH_SHORT).show();
         finish();
     }
 
+    private void dateDialog() {
+        int selectedYear = 2022;
+        int selectedMonth = 0;
+        int selectedDayOfMonth = 10;
+
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                Calendar date = Calendar.getInstance();
+                date.set(year, month, dayOfMonth);
+                mydate = date.getTime();
+                mDateText.setText(simpleDateFormat.format(mydate.getTime()));
+
+            }
+
+        };
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,dateSetListener, selectedYear, selectedMonth, selectedDayOfMonth);
+
+        datePickerDialog.show();
+
+    }
 }
 
 

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.mareu.DI.DI;
 import com.example.mareu.R;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.service.MeetApiService;
@@ -24,6 +25,7 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.SimpleTimeZone;
 
@@ -32,8 +34,10 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
 
     private static List<Meeting>mMeetArrayList;
     private static List<Meeting>mMeetFull;
-    private MeetApiService mMeetApiService;
+    MeetApiService mMeetApiService;
     MeetingAdapter meetAdapter;
+
+    private Date myDate = new Date();
 
     public MeetingAdapter(List<Meeting>mMeet) {
 
@@ -58,6 +62,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
         holder.delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DI.getMeetApiService().deleteMeet(mMeetArrayList.get(position));
                mMeetArrayList.remove(position);
                notifyItemRemoved(position);
                notifyItemRangeChanged(position,mMeetArrayList.size());
@@ -89,14 +94,16 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
             participants = itemView.findViewById(R.id.Participants);
             delete_button = itemView.findViewById(R.id.delete_button);
             circle = itemView.findViewById(R.id.circle);
+
         }
 
         public void displayMeet(Meeting meeting) {
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
 
             reunion.setText(meeting.getReunion());
-            time.setText(meeting.getTime());
+            myDate.setTime(meeting.getDate().getTime());
+            time.setText(simpleDateFormat.format(meeting.getDate()));
             room.setText(meeting.getRoom());
             participants.setText(meeting.getParticipants());
 

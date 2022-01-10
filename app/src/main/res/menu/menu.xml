@@ -13,4 +13,8 @@
           android:title="Filter by date"
           app:showAsAction="never"/>
 
+    <item android:id="@+id/reset_filter"
+        android:title="Reset Filter"
+        app:showAsAction="never"/>
+
 </menu>

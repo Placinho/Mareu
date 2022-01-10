@@ -11,9 +11,9 @@ import java.util.List;
 
 abstract class DummyMeetingGenerator {
 
-        public static List<Meeting> DUMMY_MEETS = Arrays.asList(new Meeting("Réunion A",new Date(1639609200000L),"14h","Mario","Samuel"),
-                new Meeting("Reunion B", new Date(1639695600000L),"15h","Luigi","Michel"),
-                new Meeting("Reunion C", new Date(1639782000000L),"16h","Bowser","Laura"));
+        public static List<Meeting> DUMMY_MEETS = Arrays.asList(new Meeting("Réunion A",new Date(1639609200000L),"Mario","Samuel"),
+                new Meeting("Reunion B", new Date(1639695600000L),"Luigi","Michel"),
+                new Meeting("Reunion C", new Date(1639782000000L),"Bowser","Laura"));
 
 
         static List<Meeting> generateMeets() { return new ArrayList<>(DUMMY_MEETS);
